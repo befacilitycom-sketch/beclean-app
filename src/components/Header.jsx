@@ -35,11 +35,15 @@ export default function Header() {
       // Scrolled state for background blur
       setIsScrolled(currentScrollY > 20);
       
-      // Hide/Show logic based on direction (only apply if scrolled past header height to avoid jitter)
-      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-        setIsHidden(true); // Scrolling down
-      } else {
-        setIsHidden(false); // Scrolling up
+      // Prevent hiding if mobile menu is open or if we haven't scrolled enough (threshold)
+      if (Math.abs(currentScrollY - lastScrollY.current) < 10) return;
+      
+      if (!isMobileMenuOpen) {
+        if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+          setIsHidden(true); // Scrolling down
+        } else {
+          setIsHidden(false); // Scrolling up
+        }
       }
       
       lastScrollY.current = currentScrollY;
@@ -47,7 +51,7 @@ export default function Header() {
     
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMobileMenuOpen]);
 
   // Close mobile menu when route changes (e.g., browser back button)
   useEffect(() => {

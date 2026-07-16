@@ -1932,6 +1932,27 @@ img {
 /* ==========================================================================
    Text Logo (BrandLogo)
    ========================================================================== */
+@keyframes drawBePath {
+  0% { stroke-dashoffset: 400; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes floatBeLogo {
+  0% { transform: translateY(0px); filter: drop-shadow(0px 4px 8px rgba(0, 245, 212, 0.3)); }
+  50% { transform: translateY(-3px); filter: drop-shadow(0px 8px 12px rgba(0, 245, 212, 0.6)); }
+  100% { transform: translateY(0px); filter: drop-shadow(0px 4px 8px rgba(0, 245, 212, 0.3)); }
+}
+
+.be-logo-container {
+  animation: floatBeLogo 4s ease-in-out infinite;
+}
+
+.be-animate-draw {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: drawBePath 1.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
 .brand-logo {
   display: inline-flex;
   align-items: center;

@@ -8,6 +8,7 @@ const InterlockingBe = () => (
     viewBox="0 0 130 130" 
     fill="none" 
     xmlns="http://www.w3.org/2000/svg"
+    className="be-logo-container"
     style={{ overflow: 'visible', marginRight: '8px' }}
   >
     <defs>
@@ -32,16 +33,16 @@ const InterlockingBe = () => (
     
     <g strokeWidth="16" strokeLinecap="round" strokeLinejoin="round">
       {/* 1. Letter 'b' stem and bowl */}
-      <line x1="30" y1="10" x2="30" y2="115" stroke="url(#grad-b)" />
-      <use href="#path-b-bowl" stroke="url(#grad-b)" />
+      <line x1="30" y1="10" x2="30" y2="115" stroke="url(#grad-b)" className="be-animate-draw" />
+      <use href="#path-b-bowl" stroke="url(#grad-b)" className="be-animate-draw" style={{ animationDelay: '0.2s' }} />
       
       {/* 2. Letter 'e' rendered on top, with gap */}
       <use href="#path-e" stroke="#050811" strokeWidth="26" />
-      <use href="#path-e" stroke="url(#grad-e)" />
+      <use href="#path-e" stroke="url(#grad-e)" className="be-animate-draw" style={{ animationDelay: '0.4s' }} />
       
       {/* 3. Top of 'b' rendered back on top to complete the interlock */}
       <use href="#path-b-top" stroke="#050811" strokeWidth="26" />
-      <use href="#path-b-top" stroke="url(#grad-b)" />
+      <use href="#path-b-top" stroke="url(#grad-b)" className="be-animate-draw" style={{ animationDelay: '0.6s' }} />
     </g>
   </svg>
 );
