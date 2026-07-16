@@ -1924,3 +1924,32 @@ img {
     justify-content: center;
   }
 }
+
+/* ==========================================================================
+   Text Logo (BrandLogo)
+   ========================================================================== */
+.brand-logo {
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+}
+
+.text-logo {
+  font-family: var(--font-heading);
+  font-size: 2.1rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #fff 0%, var(--accent-cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  text-shadow: 0px 2px 10px rgba(0, 245, 212, 0.2);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+@media (max-width: 992px) {
+  .text-logo {
+    font-size: 1.7rem;
+  }
+}
+
