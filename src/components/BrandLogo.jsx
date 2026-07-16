@@ -9,9 +9,8 @@ export default function BrandLogo({ onClick }) {
       onClick={onClick} 
       aria-label="Accueil BeClean"
     >
-      <span className="text-logo">
-        BeClean
-      </span>
+      <span className="logo-be">Be</span>
+      <span className="logo-clean">Clean</span>
     </Link>
   );
 }

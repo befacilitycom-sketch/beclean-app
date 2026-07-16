@@ -243,6 +243,10 @@ a {
   height: 70px;
 }
 
+.header.hidden {
+  transform: translateY(-100%);
+}
+
 .nav-container {
   display: flex;
   align-items: center;
@@ -1929,26 +1933,40 @@ img {
    Text Logo (BrandLogo)
    ========================================================================== */
 .brand-logo {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   position: relative;
   text-decoration: none;
-}
-
-.text-logo {
   font-family: var(--font-heading);
-  font-size: 2.1rem;
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  background: linear-gradient(135deg, #fff 0%, var(--accent-cyan) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-  text-shadow: 0px 2px 10px rgba(0, 245, 212, 0.2);
   transition: opacity var(--transition-fast), transform var(--transition-fast);
 }
 
+.logo-be {
+  background: var(--accent-cyan);
+  color: #050811;
+  font-size: 1.8rem;
+  font-weight: 900;
+  padding: 0.1rem 0.5rem;
+  border-radius: 8px;
+  margin-right: 2px;
+  box-shadow: 0px 4px 15px rgba(0, 245, 212, 0.4);
+}
+
+.logo-clean {
+  font-size: 2.1rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #fff;
+  text-shadow: 0px 2px 10px rgba(255, 255, 255, 0.1);
+}
+
 @media (max-width: 992px) {
-  .text-logo {
+  .logo-be {
+    font-size: 1.4rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 6px;
+  }
+  .logo-clean {
     font-size: 1.7rem;
   }
 }

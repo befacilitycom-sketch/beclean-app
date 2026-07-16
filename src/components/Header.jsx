@@ -21,13 +21,30 @@ const NAV_ITEMS = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const lastScrollY = React.useRef(0);
   const pathname = usePathname();
   const { getCartCount, setIsCartOpen } = useCart();
   const cartCount = getCartCount();
 
-  // Passive scroll listener — improves mobile scroll performance
+  // Smart scroll listener — hides header on scroll down, shows on scroll up
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Scrolled state for background blur
+      setIsScrolled(currentScrollY > 20);
+      
+      // Hide/Show logic based on direction (only apply if scrolled past header height to avoid jitter)
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        setIsHidden(true); // Scrolling down
+      } else {
+        setIsHidden(false); // Scrolling up
+      }
+      
+      lastScrollY.current = currentScrollY;
+    };
+    
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -51,7 +68,7 @@ export default function Header() {
   const toggleMobileMenu = useCallback(() => setIsMobileMenuOpen(prev => !prev), []);
 
   return (
-    <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
+    <header className={`header ${isScrolled ? 'scrolled' : ''} ${isHidden ? 'hidden' : ''}`}>
       <div className="container nav-container">
 
         {/* ——— LOGO ——— */}
