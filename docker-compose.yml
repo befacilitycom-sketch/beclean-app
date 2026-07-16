@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # ── PostgreSQL 18 database for BeClean Payload CMS ───────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: beclean_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: payload
+      POSTGRES_PASSWORD: payload_password
+      POSTGRES_DB: beclean_payload
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - beclean-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U payload -d beclean_payload"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── BeClean Next.js + Payload CMS (Integrated) ───────────────
+  beclean-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: beclean_web_app
+    restart: always
+    ports:
+      - "8090:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - NODE_ENV=production
+      - PAYLOAD_SECRET=CHANGE_ME_TO_A_LONG_RANDOM_SECRET_STRING_IN_PRODUCTION
+      - DATABASE_URI=postgres://payload:payload_password@postgres:5432/beclean_payload
+      - NEXT_PUBLIC_SITE_URL=https://beclean.befacility.com
+      - NEXT_PUBLIC_TENANT=beclean
+      # --- SMTP Email ---
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=465
+      - SMTP_USER=befacility.com@gmail.com
+      - SMTP_PASSWORD=gimc iwuf oelq zwtu
+      - SMTP_FROM_EMAIL=BeClean Web <befacility.com@gmail.com>
+      - SMTP_TO_EMAIL=befacility.com@gmail.com
+    networks:
+      - beclean-net
+
+volumes:
+  postgres_data:
+
+networks:
+  beclean-net:
+    driver: bridge
