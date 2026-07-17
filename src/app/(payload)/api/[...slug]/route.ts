@@ -5,8 +5,6 @@ import {
   REST_PATCH,
   REST_POST,
   REST_PUT,
-  GRAPHQL_POST,
-  GRAPHQL_PLAYGROUND_GET,
 } from '@payloadcms/next/routes';
 
 import configPromise from '@payload-config';

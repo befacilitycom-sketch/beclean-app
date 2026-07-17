@@ -34,8 +34,9 @@ services:
         condition: service_healthy
     environment:
       - NODE_ENV=production
-      - PAYLOAD_SECRET=CHANGE_ME_TO_A_LONG_RANDOM_SECRET_STRING_IN_PRODUCTION
+      - PAYLOAD_SECRET=CHANGE_ME_TO_A_LONG_RANDOM_SECRET_IN_PROD
       - DATABASE_URI=postgres://payload:payload_password@postgres:5432/beclean_payload
+      - INTERNAL_URL=http://127.0.0.1:3000
       - NEXT_PUBLIC_SITE_URL=https://beclean.befacility.com
       - NEXT_PUBLIC_TENANT=beclean
       # --- SMTP Email ---

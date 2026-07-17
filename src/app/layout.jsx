@@ -21,8 +21,6 @@ const inter = Inter({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://beclean.ma';
 
-export const dynamic = 'force-dynamic';
-
 export const viewport = {
   themeColor: '#00f5d4',
   width: 'device-width',

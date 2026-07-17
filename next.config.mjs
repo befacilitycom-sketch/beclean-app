@@ -13,9 +13,6 @@ const nextConfig = {
   reactStrictMode: true,
   compress: true,
   output: 'standalone',
-  experimental: {
-    instrumentationHook: true,
-  },
 
   // Skip TypeScript type-checking during build
   typescript: {

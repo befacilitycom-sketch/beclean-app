@@ -17,10 +17,11 @@ const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 export default buildConfig({
+  serverURL: process.env.NEXT_PUBLIC_SITE_URL || 'http://192.168.1.137:8090',
   admin: {
     user: 'users',
   },
-  cors: '*', // Autorise toutes les origines pour le dev/VM
+  cors: ['http://192.168.1.137:8090', 'https://beclean.befacility.com', 'http://localhost:3000', 'http://localhost:8090'],
   csrf: ['http://192.168.1.137:8090', 'https://beclean.befacility.com', 'http://localhost:3000', 'http://localhost:8090'],
   globals: [
     SiteSettings,
@@ -38,10 +39,18 @@ export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || 'a_secret_fallback_key_for_dev_mode',
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI || 'postgres://postgres:postgres@localhost:5432/beclean_payload',
+      connectionString: process.env.DATABASE_URI || 'postgres://payload:payload_password@localhost:5432/beclean_payload',
+      max: 10,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 10000,
     },
-    push: true, // Forces schema creation even in production mode
+    push: true,
   }),
+  upload: {
+    limits: {
+      fileSize: 10000000, // 10MB
+    },
+  },
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
