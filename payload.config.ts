@@ -20,9 +20,8 @@ export default buildConfig({
   admin: {
     user: 'users',
   },
-  serverURL: process.env.NEXT_PUBLIC_SITE_URL || '',
   cors: '*', // Autorise toutes les origines pour le dev/VM
-  csrf: ['http://192.168.1.137:8090', 'https://beclean.befacility.com', 'http://localhost:3000'],
+  csrf: ['http://192.168.1.137:8090', 'https://beclean.befacility.com', 'http://localhost:3000', 'http://localhost:8090'],
   globals: [
     SiteSettings,
     HomePage,
