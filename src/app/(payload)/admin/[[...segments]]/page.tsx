@@ -5,6 +5,8 @@ import configPromise from '@payload-config';
 export const dynamic = 'force-dynamic';
 
 
+import { importMap } from '../importMap.js';
+
 type Args = {
   params: Promise<{
     segments: string[];
@@ -15,9 +17,9 @@ type Args = {
 };
 
 export const generateMetadata = ({ params, searchParams }: Args) =>
-  generatePageMetadata({ config: configPromise, params, searchParams });
+  generatePageMetadata({ config: configPromise, params, searchParams, importMap });
 
 const Page = ({ params, searchParams }: Args) =>
-  RootPage({ config: configPromise, params, searchParams });
+  RootPage({ config: configPromise, params, searchParams, importMap });
 
 export default Page;

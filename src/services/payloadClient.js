@@ -5,7 +5,7 @@ import { PRODUCTS, SERVICES, BLOG_ARTICLES } from '../config/constants';
 const tenant = process.env.NEXT_PUBLIC_TENANT || 'beclean';
 const isServer = typeof window === 'undefined';
 const siteUrl = isServer 
-  ? (process.env.INTERNAL_URL || 'http://localhost:3000') 
+  ? (process.env.INTERNAL_URL || 'http://127.0.0.1:3000') 
   : (process.env.NEXT_PUBLIC_SITE_URL || '');
 
 // Helper to construct query strings safely
