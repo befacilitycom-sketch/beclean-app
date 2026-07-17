@@ -21,6 +21,8 @@ const inter = Inter({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://beclean.ma';
 
+export const dynamic = 'force-dynamic';
+
 export const viewport = {
   themeColor: '#00f5d4',
   width: 'device-width',
@@ -57,6 +59,13 @@ export const metadata = {
       { url: '/favicon.ico', sizes: 'any' },
     ],
     apple: { url: '/apple-touch-icon.png', sizes: '180x180' },
+  },
+  keywords: ['nettoyage', 'propreté', 'hygiène', 'maroc', 'casablanca', 'entreprise nettoyage', 'nettoyage industriel'],
+  twitter: {
+    card: 'summary_large_image',
+    title: 'BeClean | Expert de la Propreté et Produits d\'Hygiène au Maroc',
+    description: 'Services de nettoyage professionnel, produits d\'hygiène et matériel pour particuliers, entreprises et industries au Maroc.',
+    images: ['/og-image.jpg'],
   },
   robots: {
     index: true,

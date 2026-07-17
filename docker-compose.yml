@@ -47,9 +47,12 @@ services:
       - SMTP_TO_EMAIL=befacility.com@gmail.com
     networks:
       - beclean-net
+    volumes:
+      - media_data:/app/public/media
 
 volumes:
   postgres_data:
+  media_data:
 
 networks:
   beclean-net:

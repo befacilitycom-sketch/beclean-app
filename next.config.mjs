@@ -12,6 +12,7 @@ const withSerwist = withSerwistInit({
 const nextConfig = {
   reactStrictMode: true,
   compress: true,
+  output: 'standalone',
 
   // Skip TypeScript type-checking during build
   typescript: {
