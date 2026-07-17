@@ -1,0 +1,7 @@
+import configPromise from '@payload-config'
+import { GRAPHQL_GET, GRAPHQL_POST } from '@payloadcms/next/routes'
+
+export const dynamic = 'force-dynamic'
+
+export const GET = GRAPHQL_GET(configPromise)
+export const POST = GRAPHQL_POST(configPromise)
