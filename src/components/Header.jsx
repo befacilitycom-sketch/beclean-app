@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import BrandLogo from './BrandLogo';
 
 // Defined outside component to avoid recreation on every render
 const NAV_ITEMS = [
@@ -75,8 +74,8 @@ export default function Header() {
     <header className={`header ${isScrolled ? 'scrolled' : ''} ${isHidden ? 'hidden' : ''}`}>
       <div className="container nav-container">
 
-        {/* ——— LOGO ——— */}
-        <BrandLogo onClick={closeMobileMenu} />
+        {/* ——— LOGO (REMOVED AS PER REQUEST) ——— */}
+        <div style={{ width: '130px' }}></div>
 
         {/* Desktop nav */}
         <nav aria-label="Navigation principale">
