@@ -15,12 +15,9 @@ import configPromise from '@payload-config';
 export const dynamic = 'force-dynamic';
 
 
-export const GET = REST_GET;
-export const POST = REST_POST;
-export const DELETE = REST_DELETE;
-export const PATCH = REST_PATCH;
-export const PUT = REST_PUT;
-export const OPTIONS = REST_OPTIONS;
-
-// GraphQL support
-export { GRAPHQL_POST, GRAPHQL_PLAYGROUND_GET };
+export const GET = REST_GET(configPromise);
+export const POST = REST_POST(configPromise);
+export const DELETE = REST_DELETE(configPromise);
+export const PATCH = REST_PATCH(configPromise);
+export const PUT = REST_PUT(configPromise);
+export const OPTIONS = REST_OPTIONS(configPromise);
