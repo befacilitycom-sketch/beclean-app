@@ -14,6 +14,16 @@ const nextConfig = {
   compress: true,
   output: 'standalone',
 
+  // FIX: Explicitly define @payload-config alias for Turbopack.
+  // withPayload() only configures this for Webpack. Since Next.js 16 defaults
+  // to Turbopack for builds, instrumentation.ts fails to import the config
+  // without this, causing the DB schema to never be pushed (users table missing).
+  turbopack: {
+    resolveAlias: {
+      '@payload-config': './payload.config.ts',
+    },
+  },
+
   // Skip TypeScript type-checking during build
   typescript: {
     ignoreBuildErrors: true,
@@ -22,8 +32,8 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { protocol: 'http', hostname: 'localhost', port: '3000', pathname: '/api/media/**' },
+      { protocol: 'http', hostname: '192.168.1.137', port: '8090', pathname: '/api/media/**' },
       { protocol: 'https', hostname: 'beclean.befacility.com', pathname: '/api/media/**' },
-      { protocol: 'https', hostname: 'strapi.befacility.com', pathname: '/uploads/**' },
     ],
   },
 };

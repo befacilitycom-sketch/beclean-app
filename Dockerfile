@@ -37,4 +37,8 @@ COPY --from=builder /app/public ./public
 # Expose Next.js default port
 EXPOSE 3000
 
-CMD ["node", "server.js"]
+# Copy and make entrypoint executable
+COPY docker-entrypoint.sh ./docker-entrypoint.sh
+RUN chmod +x ./docker-entrypoint.sh
+
+CMD ["./docker-entrypoint.sh"]
