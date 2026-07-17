@@ -82,6 +82,7 @@ export default async function Footer() {
   const socials = siteSettings.socials || COMPANY_INFO.socials;
 
   const whatsappClean = whatsapp.replace('+', '').replace(/\s/g, '');
+  const waLink = whatsappClean.startsWith('0') ? '212' + whatsappClean.substring(1) : whatsappClean;
   
   return (
     <footer className="footer" role="contentinfo">
@@ -169,7 +170,7 @@ export default async function Footer() {
               </div>
               <div style={{ display: 'flex', gap: '0.8rem', alignItems: 'center' }}>
                 <MessageCircle size={18} style={{ color: '#25D366', flexShrink: 0 }} aria-hidden="true" />
-                <span>GSM / WhatsApp : <a href={`https://wa.me/${whatsappClean}`} target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none', fontWeight: '600' }}>{whatsapp}</a></span>
+                <span>Tel / WhatsApp : <a href={`https://wa.me/${waLink}`} target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none', fontWeight: '600' }}>{whatsapp}</a></span>
               </div>
               <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', gap: '0.4rem' }}>
                 <div style={{ display: 'flex', gap: '0.8rem', alignItems: 'center' }}>
@@ -197,7 +198,7 @@ export default async function Footer() {
               Discutez directement avec un conseiller commercial BeClean sur WhatsApp pour votre entreprise.
             </p>
             <a 
-              href={`https://wa.me/${whatsappClean}?text=${encodeURIComponent('Bonjour BeClean, je souhaiterais obtenir des informations concernant vos services.')}`}
+              href={`https://wa.me/${waLink}?text=${encodeURIComponent('Bonjour BeClean, je souhaiterais obtenir des informations concernant vos services.')}`}
               target="_blank"
               rel="noreferrer"
               className="btn btn-primary"
