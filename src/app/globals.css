@@ -1933,7 +1933,7 @@ img {
    Text Logo (BrandLogo)
    ========================================================================== */
 @keyframes drawBePath {
-  0% { stroke-dashoffset: 400; }
+  0% { stroke-dashoffset: 1; }
   100% { stroke-dashoffset: 0; }
 }
 
@@ -1948,8 +1948,8 @@ img {
 }
 
 .be-animate-draw {
-  stroke-dasharray: 400;
-  stroke-dashoffset: 400;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
   animation: drawBePath 1.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }
 
