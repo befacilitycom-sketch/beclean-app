@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import { MapPin, Phone, MessageCircle, Mail, FileText } from 'lucide-react';
 import { COMPANY_INFO } from '../config/constants';
-import BrandLogo from './BrandLogo';
 
 const LinkedinIcon = (props) => (
   <svg viewBox="0 0 24 24" width={props.size || 18} height={props.size || 18} fill="currentColor" {...props}>
@@ -95,9 +94,6 @@ export default async function Footer() {
         }}>
           {/* Brand Info */}
           <div>
-            <div style={{ marginBottom: '1.5rem' }}>
-              <BrandLogo />
-            </div>
             <p style={{ fontSize: '0.9rem', marginBottom: '1.5rem', color: 'var(--color-text-secondary)' }}>
               {tagline}
             </p>
