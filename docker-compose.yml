@@ -1,7 +1,16 @@
 version: '3.8'
 
+# ============================================================
+#   BeClean — Architecture 3 Tiers (Découplée)
+# 
+#   postgres      — Base de données PostgreSQL 16
+#   beclean-backend  — Payload CMS Admin + API  → :8091
+#   beclean-frontend — Site Next.js public      → :8090
+# ============================================================
+
 services:
-  # ── PostgreSQL 18 database for BeClean Payload CMS ───────────
+
+  # ── 1. Base de données PostgreSQL ──────────────────────────
   postgres:
     image: postgres:16-alpine
     container_name: beclean_postgres
@@ -16,30 +25,49 @@ services:
       - beclean-net
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U payload -d beclean_payload"]
-      interval: 10s
+      interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 15
 
-  # ── BeClean Next.js + Payload CMS (Integrated) ───────────────
-  beclean-app:
+  # ── 2. Payload CMS Backend (Admin + API) ───────────────────
+  beclean-backend:
     build:
-      context: .
+      context: ./backend
       dockerfile: Dockerfile
-    container_name: beclean_web_app
+    container_name: beclean_backend
     restart: always
     ports:
-      - "8090:3000"
+      - "8091:3000"   # Admin: http://192.168.1.137:8091/admin
     depends_on:
       postgres:
         condition: service_healthy
     environment:
       - NODE_ENV=production
-      - PAYLOAD_SECRET=CHANGE_ME_TO_A_LONG_RANDOM_SECRET_IN_PROD
+      - PAYLOAD_SECRET=BeFacility_B3cl3an_S3cr3t_2026_Payload
       - DATABASE_URI=postgres://payload:payload_password@postgres:5432/beclean_payload
-      - INTERNAL_URL=http://127.0.0.1:3000
+      - NEXT_PUBLIC_SITE_URL=http://192.168.1.137:8091
+    networks:
+      - beclean-net
+    volumes:
+      - media_data:/app/public/media
+
+  # ── 3. Next.js Frontend (Site Public) ─────────────────────
+  beclean-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: beclean_frontend
+    restart: always
+    ports:
+      - "8090:3000"   # Site: http://192.168.1.137:8090
+    depends_on:
+      - beclean-backend
+    environment:
+      - NODE_ENV=production
       - NEXT_PUBLIC_SITE_URL=https://beclean.befacility.com
       - NEXT_PUBLIC_TENANT=beclean
-      # --- SMTP Email ---
+      - NEXT_PUBLIC_API_URL=http://192.168.1.137:8091   # URL publique backend (client-side)
+      - PAYLOAD_API_URL=http://beclean-backend:3000     # URL interne Docker (server-side)
       - SMTP_HOST=smtp.gmail.com
       - SMTP_PORT=465
       - SMTP_USER=befacility.com@gmail.com
@@ -48,13 +76,13 @@ services:
       - SMTP_TO_EMAIL=befacility.com@gmail.com
     networks:
       - beclean-net
-    volumes:
-      - media_data:/app/public/media
 
+# ── Volumes persistants ────────────────────────────────────
 volumes:
-  postgres_data:
-  media_data:
+  postgres_data:    # Données PostgreSQL
+  media_data:       # Médias uploadés via Payload
 
+# ── Réseau interne Docker ──────────────────────────────────
 networks:
   beclean-net:
     driver: bridge
