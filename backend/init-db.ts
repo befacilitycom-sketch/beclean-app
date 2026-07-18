@@ -5,7 +5,7 @@
  * the HTTP server accepts any request. Completely eliminates the
  * "relation users does not exist" race condition.
  */
-import configPromise from './payload.config.js';
+import configPromise from '@payload-config';
 import { getPayload } from 'payload';
 
 console.log('[init-db] Connecting to PostgreSQL and pushing Payload schema...');

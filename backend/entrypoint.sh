@@ -15,9 +15,9 @@ echo "╚═══════════════════════�
 # Step 1: Wait for PostgreSQL to be ready
 echo "⏳ [1/3] Waiting for PostgreSQL..."
 until node -e "
-const { Client } = require('pg');
-const c = new Client({ connectionString: process.env.DATABASE_URI });
-c.connect().then(() => c.end()).then(() => process.exit(0)).catch(() => process.exit(1));
+const net = require('net');
+const s = net.createConnection(5432, 'postgres', () => { s.end(); process.exit(0); });
+s.on('error', () => process.exit(1));
 " 2>/dev/null; do
   printf '.'
   sleep 2
